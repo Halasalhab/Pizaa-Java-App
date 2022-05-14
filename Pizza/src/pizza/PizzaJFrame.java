@@ -1,0 +1,621 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package pizza;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author Hala
+ */
+public class PizzaJFrame extends javax.swing.JFrame {
+    Pizza pizza=new Pizza();
+    int capacity;
+    ArrayList <Ingredient> topping= new ArrayList<>();
+    Mixer mixer=new Mixer();
+    Dough dough=mixer.makeDough();
+    ThinPan thin_pan=new ThinPan();
+    DeepDishPan deep_dish=new DeepDishPan();
+    String outPutTextArea="";
+    /**
+     * Creates new form Pizza
+     */
+    
+    public PizzaJFrame() {
+        initComponents();
+        this.topping.add(0, new Ingredient("Tomatoes", 2, 10, 150));
+        this.topping.add(1, new Ingredient("Garlic", 2, 10, 150) );
+        this.topping.add(2, new Ingredient("Onion", 2, 15, 150) );
+        this.topping.add(3, new Ingredient("Pepper", 2, 10, 150) );
+        this.topping.add(4, new Ingredient("Mushroom", 2, 10, 150) );
+        this.topping.add(5, new Ingredient("Beef", 5, 20, 150) );
+        this.topping.add(6, new Ingredient("Mozzarella", 3, 50, 150) );
+        this.topping.add(7, new Ingredient("Margarita", 3, 50, 150) );
+    }
+    //Check the capacity for the pan
+boolean checkCapacity(int panCapacity, String size){
+    boolean flag=false;
+    int in_stock;
+    if(Tomatoes.isSelected()){
+       capacity+=this.topping.get(0).getWeight() ;
+    }
+    if(Garlic.isSelected()){
+       capacity+=this.topping.get(1).getWeight() ;
+    }
+    if(Onion.isSelected()){
+       capacity+=this.topping.get(2).getWeight() ;
+    }
+    if(Pepper.isSelected()){
+       capacity+=this.topping.get(3).getWeight() ;
+    }
+    if(Mushroom.isSelected()){
+       capacity+=this.topping.get(4).getWeight() ;
+    }
+    if(Beef.isSelected()){
+       capacity+=this.topping.get(5).getWeight() ;
+    }
+    if(Mozzarella.isSelected()){
+       capacity+=this.topping.get(6).getWeight() ;
+    }
+    if(Margarita.isSelected()){
+       capacity+=this.topping.get(7).getWeight() ;
+    }
+    
+    if(panCapacity>=capacity){
+        //check dough supply
+        flag=true;
+    if(size.equals("Small") && dough.getSmall_capacity()<=(dough.getIn_stock()-dough.getSmall_capacity() )){       
+            
+            dough.setIn_stock(dough.getIn_stock()-dough.getSmall_capacity());
+    }else if(size.equals("Large" )&& dough.getLarg_capacity()<=dough.getIn_stock()-dough.getLarg_capacity()){
+       
+            dough.setIn_stock(dough.getIn_stock()-dough.getLarg_capacity());
+    }else if(size.equals("Medium") && dough.getIn_stock()<=dough.getIn_stock()-dough.getMedum_capacity()){
+      
+            dough.setIn_stock(dough.getIn_stock()-dough.getMedum_capacity());
+    }else{
+            JOptionPane.showMessageDialog(null, "Dough supply is out, please try smaller size, or come back tommorow <3");
+            flag=false;
+    }
+    }
+    capacity=0;
+    return flag;
+}
+void setAll(int panCapacity, String size){
+    if(checkCapacity(panCapacity, size)){
+            //set the pizza size
+                    pizza.setSize(size);
+            //set the pizza topping
+            
+     if(Tomatoes.isSelected()){
+//        pizza.setTopping(0, new Ingredient("Tomatoes", 2, 10, 150));
+outPutTextArea+=" Tomatoes ";
+         
+   }
+     if(Garlic.isSelected()){
+//       pizza.setTopping(1, new Ingredient("Garlic", 2, 10, 150) );
+outPutTextArea+=" Garlic ";
+   }
+    if(Onion.isSelected()){
+      outPutTextArea+=" Onion ";
+//       pizza.setTopping(2, new Ingredient("Onion", 2, 15, 150) );
+   }
+   if(Pepper.isSelected()){
+   outPutTextArea+=" Pepper ";
+//        pizza.setTopping(3, new Ingredient("Pepper", 2, 10, 150) );  
+   }
+     if(Mushroom.isSelected()){
+       outPutTextArea+=" Mushroom ";
+//        pizza.setTopping(4, new Ingredient("Mushroom", 2, 10, 150) );
+ }
+     if(Beef.isSelected()){
+       outPutTextArea+=" Beef ";
+//        pizza.setTopping(5, new Ingredient("Beef", 5, 20, 150) );
+   }
+    if(Mozzarella.isSelected()){
+       outPutTextArea+=" Mozzarella ";
+//       pizza.setTopping(6, new Ingredient("Mozzarella", 3, 50, 150) );
+    }
+    if(Margarita.isSelected()){
+       outPutTextArea+=" Margarita ";
+//        pizza.setTopping(7, new Ingredient("Margarita", 3, 50, 150) );
+    }
+jTextArea1.setText("Your Order: \n"+"Pizza Size: "+ pizza.getSize()+ "\n Pizza Toppings: "+outPutTextArea );
+
+        JOptionPane.showMessageDialog(null, "Please confirm your order");
+    }
+    else{
+        JOptionPane.showMessageDialog(null, "You exceed the maximum number of toppings for the size you have chosen, please change the size or the amount of toppings and try again");
+    }
+}
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        sizeSmall = new javax.swing.JCheckBox();
+        sizeMedium = new javax.swing.JCheckBox();
+        sizeLarge = new javax.swing.JCheckBox();
+        jPanel2 = new javax.swing.JPanel();
+        Tomatoes = new javax.swing.JCheckBox();
+        Garlic = new javax.swing.JCheckBox();
+        Onion = new javax.swing.JCheckBox();
+        Pepper = new javax.swing.JCheckBox();
+        Mushroom = new javax.swing.JCheckBox();
+        Beef = new javax.swing.JCheckBox();
+        Mozzarella = new javax.swing.JCheckBox();
+        Margarita = new javax.swing.JCheckBox();
+        jPanel3 = new javax.swing.JPanel();
+        makePizza = new javax.swing.JButton();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        makePizza1 = new javax.swing.JButton();
+        makePizza2 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        pan_deep_desh = new javax.swing.JCheckBox();
+        panPan = new javax.swing.JCheckBox();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
+        jLabel1.setText("Pizzanoo");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Size"));
+
+        sizeSmall.setText("Small");
+        sizeSmall.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sizeSmallActionPerformed(evt);
+            }
+        });
+
+        sizeMedium.setText("Medium");
+        sizeMedium.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sizeMediumActionPerformed(evt);
+            }
+        });
+
+        sizeLarge.setText("Large");
+        sizeLarge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sizeLargeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(72, 72, 72)
+                .addComponent(sizeSmall)
+                .addGap(18, 18, 18)
+                .addComponent(sizeMedium)
+                .addGap(18, 18, 18)
+                .addComponent(sizeLarge)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sizeSmall)
+                    .addComponent(sizeMedium)
+                    .addComponent(sizeLarge))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Toppings"));
+
+        Tomatoes.setText("Tomatoes");
+        Tomatoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TomatoesActionPerformed(evt);
+            }
+        });
+
+        Garlic.setText("Garlic");
+        Garlic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GarlicActionPerformed(evt);
+            }
+        });
+
+        Onion.setText("Onion");
+        Onion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OnionActionPerformed(evt);
+            }
+        });
+
+        Pepper.setText("Pepper");
+        Pepper.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PepperActionPerformed(evt);
+            }
+        });
+
+        Mushroom.setText("Mushroom");
+        Mushroom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MushroomActionPerformed(evt);
+            }
+        });
+
+        Beef.setText("Beef");
+        Beef.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BeefActionPerformed(evt);
+            }
+        });
+
+        Mozzarella.setText("Mozzarella ");
+        Mozzarella.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MozzarellaActionPerformed(evt);
+            }
+        });
+
+        Margarita.setText("Margarita");
+        Margarita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MargaritaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(Tomatoes)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(Mozzarella)
+                        .addGap(18, 18, 18)
+                        .addComponent(Margarita))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(Garlic)
+                        .addGap(18, 18, 18)
+                        .addComponent(Onion)
+                        .addGap(18, 18, 18)
+                        .addComponent(Pepper)
+                        .addGap(18, 18, 18)
+                        .addComponent(Mushroom)
+                        .addGap(18, 18, 18)
+                        .addComponent(Beef)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Tomatoes)
+                    .addComponent(Garlic)
+                    .addComponent(Onion)
+                    .addComponent(Pepper)
+                    .addComponent(Mushroom)
+                    .addComponent(Beef))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Mozzarella)
+                    .addComponent(Margarita))
+                .addContainerGap())
+        );
+
+        makePizza.setText("confirm");
+        makePizza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                makePizzaActionPerformed(evt);
+            }
+        });
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        makePizza1.setText("Make Pizza");
+        makePizza1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                makePizza1ActionPerformed(evt);
+            }
+        });
+
+        makePizza2.setText("Cancel");
+        makePizza2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                makePizza2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(makePizza1)
+                .addGap(84, 84, 84)
+                .addComponent(makePizza2)
+                .addGap(170, 170, 170))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(219, 219, 219)
+                        .addComponent(makePizza)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(makePizza, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(makePizza2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(makePizza1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Pan Type"));
+
+        pan_deep_desh.setText("Deep Desh");
+        pan_deep_desh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pan_deep_deshActionPerformed(evt);
+            }
+        });
+
+        panPan.setText("Thin Pan");
+        panPan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                panPanActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(107, 107, 107)
+                .addComponent(pan_deep_desh)
+                .addGap(71, 71, 71)
+                .addComponent(panPan)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pan_deep_desh)
+                    .addComponent(panPan))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(183, 183, 183)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        jPanel4.getAccessibleContext().setAccessibleDescription("");
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void sizeSmallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sizeSmallActionPerformed
+        sizeMedium.setSelected(false);
+        sizeLarge.setSelected(false);
+    }//GEN-LAST:event_sizeSmallActionPerformed
+
+    private void sizeMediumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sizeMediumActionPerformed
+        sizeSmall.setSelected(false);
+        sizeLarge.setSelected(false);
+    }//GEN-LAST:event_sizeMediumActionPerformed
+
+    private void sizeLargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sizeLargeActionPerformed
+        sizeSmall.setSelected(false);
+        sizeMedium.setSelected(false);
+    }//GEN-LAST:event_sizeLargeActionPerformed
+
+    private void TomatoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TomatoesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TomatoesActionPerformed
+
+    private void GarlicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GarlicActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GarlicActionPerformed
+
+    private void pan_deep_deshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pan_deep_deshActionPerformed
+        // TODO add your handling code here:
+        panPan.setSelected(false);
+    }//GEN-LAST:event_pan_deep_deshActionPerformed
+
+    private void makePizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_makePizzaActionPerformed
+
+        //Calculate the capacity
+        sizeSmall.getText();
+        if (sizeSmall.isSelected() &&panPan.isSelected()) {
+            setAll(this.thin_pan.getSmall_capacity(),sizeSmall.getText());
+        }
+        if (sizeMedium.isSelected() &&panPan.isSelected()) {
+            setAll(this.thin_pan.getMedum_capacity(),sizeMedium.getText());
+        }
+        if (sizeLarge.isSelected() &&panPan.isSelected()) {
+            setAll(this.thin_pan.getLarg_capacity(),sizeLarge.getText());
+        }
+         if (sizeSmall.isSelected() &&pan_deep_desh.isSelected()) {
+            setAll(this.deep_dish.getSmall_capacity(),sizeSmall.getText());
+        }
+         if (sizeMedium.isSelected() &&pan_deep_desh.isSelected()) {
+            setAll(this.deep_dish.getMedum_capacity(),sizeMedium.getText());
+        }
+         if (sizeLarge.isSelected() &&pan_deep_desh.isSelected()) {
+            setAll(this.deep_dish.getLarg_capacity(),sizeLarge.getText());
+        }
+       
+    }//GEN-LAST:event_makePizzaActionPerformed
+
+    private void OnionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OnionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_OnionActionPerformed
+
+    private void PepperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PepperActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PepperActionPerformed
+
+    private void MushroomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MushroomActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MushroomActionPerformed
+
+    private void BeefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BeefActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BeefActionPerformed
+
+    private void panPanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_panPanActionPerformed
+        // TODO add your handling code here:
+        pan_deep_desh.setSelected(false);
+    }//GEN-LAST:event_panPanActionPerformed
+
+    private void MozzarellaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MozzarellaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MozzarellaActionPerformed
+
+    private void MargaritaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MargaritaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MargaritaActionPerformed
+
+    private void makePizza1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_makePizza1ActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Your order is taken");
+        
+    }//GEN-LAST:event_makePizza1ActionPerformed
+
+    private void makePizza2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_makePizza2ActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_makePizza2ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(PizzaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(PizzaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(PizzaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(PizzaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> {
+            new PizzaJFrame().setVisible(true);
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox Beef;
+    private javax.swing.JCheckBox Garlic;
+    private javax.swing.JCheckBox Margarita;
+    private javax.swing.JCheckBox Mozzarella;
+    private javax.swing.JCheckBox Mushroom;
+    private javax.swing.JCheckBox Onion;
+    private javax.swing.JCheckBox Pepper;
+    private javax.swing.JCheckBox Tomatoes;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton makePizza;
+    private javax.swing.JButton makePizza1;
+    private javax.swing.JButton makePizza2;
+    private javax.swing.JCheckBox panPan;
+    private javax.swing.JCheckBox pan_deep_desh;
+    private javax.swing.JCheckBox sizeLarge;
+    private javax.swing.JCheckBox sizeMedium;
+    private javax.swing.JCheckBox sizeSmall;
+    // End of variables declaration//GEN-END:variables
+}

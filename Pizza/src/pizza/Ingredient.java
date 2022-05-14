@@ -12,9 +12,13 @@ package pizza;
 public class Ingredient {
 
     String name;
+    //weight per one tometo for ex
     int weight;
+    //amount of calories per one tometo
     int amount_of_calories;
     int in_stock;
+
+    
 
     public Ingredient(String name, int weight, int amount_of_calories, int in_stock) {
         this.name = name;

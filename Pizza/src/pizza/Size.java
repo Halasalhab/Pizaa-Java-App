@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 package pizza;
-    
+
 /**
  *
  * @author Hala
  */
-public abstract class Pan {
-    int calories; 
-    int capacity;
+public abstract class  Size {
+    int calories;
+    
 }
